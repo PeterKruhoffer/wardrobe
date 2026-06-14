@@ -10,7 +10,7 @@ The outfits can be saved into a DB (convex) and the users are able to see the ou
 ## Philosophy
 Keep it simple, avoid complexity and interweaving code.
 Abstractions must be justified it should solve the issue not move it around.
-Present ideas through types, schemas and interfaces first - let us design the api for the program first then implement the code after
+Present ideas through types, schemas and interfaces first. Never go straight to implementation - Let us design the api for the program together first then implement the code after
 
 ## Expo HAS CHANGED
 
