@@ -1,0 +1,20 @@
+packages:
+  - "."
+
+nodeLinker: hoisted
+
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
+
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 10080
+trustLockfile: false
+blockExoticSubdeps: true
+
+strictDepBuilds: true
+dangerouslyAllowAllBuilds: false
+verifyDepsBeforeRun: install
+
+allowBuilds:
+  unrs-resolver: true

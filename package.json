@@ -2,6 +2,7 @@
   "name": "wardrobe",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "packageManager": "pnpm@11.5.0",
   "dependencies": {
     "@expo/ui": "~56.0.17",
     "expo": "~56.0.11",
@@ -29,6 +30,8 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eslint": "^9.39.4",
+    "eslint-config-expo": "~56.0.4",
     "typescript": "~6.0.3"
   },
   "scripts": {
