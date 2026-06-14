@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import type { ColorValue } from "react-native";
 
-import { colors } from "../../theme/colors";
+import { colors } from "@/theme/colors";
 
 type TabIconName = SymbolViewProps["name"];
 
