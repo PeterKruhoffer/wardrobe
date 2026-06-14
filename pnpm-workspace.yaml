@@ -17,4 +17,5 @@ dangerouslyAllowAllBuilds: false
 verifyDepsBeforeRun: install
 
 allowBuilds:
+  esbuild: true
   unrs-resolver: true
