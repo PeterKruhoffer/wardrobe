@@ -15,3 +15,17 @@ Convex agent skills for common tasks can be installed by running
 `npx convex ai-files install`.
 
 <!-- convex-ai-end -->
+
+# Wardrobe
+This app lets users upload images of their clothers (shoes, shirts, pants etc.). The users can then mix and match outfits from these clothes, currently the mvp is to be able to put together an outfit from shoes, bottoms(pants, skirts etc.) and tops (t-shirts, sweaters etc.) and optionally hats.
+The outfits can be saved into a DB (convex) and the users are able to see the outfits they have saved.
+
+## Glossary
+- users: the people using this app to put together an outfit from their wardrobe.
+- me/i/we: the humans working on this app.
+- you: the ai helping the humans build this app.
+
+## Philosophy
+Keep it simple, avoid complexity and interweaving code.
+Abstractions must be justified it should solve the issue not move it around.
+Present ideas through types, schemas and interfaces first - let us design the api for the program first then implement the code after
