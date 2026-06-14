@@ -1,33 +1,37 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useQuery } from "convex/react";
+import { StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+import { ScreenHeader } from "@/components/ui/ScreenHeader";
+import { api } from "@/convex/_generated/api";
+import { WardrobeGrid } from "@/features/wardrobe/components/WardrobeGrid";
 import { colors } from "@/theme/colors";
 
 export default function WardrobeScreen() {
+  const wardrobeItems = useQuery(api.wardrobeItems.list, { limit: 100 });
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Wardrobe</Text>
-      <Text style={styles.description}>Wardrobe placeholder</Text>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <ScreenHeader kicker="Wardrobe" title="Saved pieces" />
+        <WardrobeGrid
+          items={wardrobeItems ?? []}
+          loading={wardrobeItems === undefined}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: colors.surface.app,
+    flex: 1,
+  },
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
     backgroundColor: colors.surface.app,
+    gap: 20,
     padding: 24,
-  },
-  title: {
-    color: colors.text.primary,
-    fontSize: 28,
-    fontWeight: "700",
-  },
-  description: {
-    color: colors.text.secondary,
-    fontSize: 16,
-    textAlign: "center",
   },
 });
