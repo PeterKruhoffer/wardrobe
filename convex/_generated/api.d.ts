@@ -9,6 +9,8 @@
  */
 
 import type * as health from "../health.js";
+import type * as lib_imageMetadata from "../lib/imageMetadata.js";
+import type * as wardrobeItems from "../wardrobeItems.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +20,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   health: typeof health;
+  "lib/imageMetadata": typeof lib_imageMetadata;
+  wardrobeItems: typeof wardrobeItems;
 }>;
 
 /**
