@@ -43,7 +43,9 @@ export async function pickWardrobeImages({
     allowsMultipleSelection: true,
     mediaTypes: ["images"],
     orderedSelection: true,
-    quality: 1,
+    preferredAssetRepresentationMode:
+      ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,
+    quality: 0.98,
     selectionLimit: MAX_PHOTOS_PER_UPLOAD,
   });
 
