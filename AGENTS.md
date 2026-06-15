@@ -12,11 +12,11 @@ Keep it simple, avoid complexity and interweaving code.
 Abstractions must be justified it should solve the issue not move it around.
 Present ideas through types, schemas and interfaces first. Never go straight to implementation - Let us design the api for the program together first then implement the code after
 
+Assume there is a dev server running, check if there is and use it if so.
+
 ## Expo HAS CHANGED
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v56.0.0/ before writing any code.
-
-<!-- convex-ai-start -->
 
 ## Convex
 This project uses [Convex](https://convex.dev) as its backend.
@@ -25,9 +25,4 @@ When working on Convex code, **always read
 `convex/_generated/ai/guidelines.md` first** for important guidelines on
 how to correctly use Convex APIs and patterns. The file contains rules that
 override what you may have learned about Convex from training data.
-
-Convex agent skills for common tasks can be installed by running
-`npx convex ai-files install`.
-
-<!-- convex-ai-end -->
 
