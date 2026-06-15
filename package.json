@@ -5,6 +5,7 @@
   "packageManager": "pnpm@11.5.0",
   "dependencies": {
     "@expo/ui": "~56.0.17",
+    "@legendapp/list": "^3.0.4",
     "convex": "^1.41.0",
     "expo": "~56.0.11",
     "expo-constants": "~56.0.18",

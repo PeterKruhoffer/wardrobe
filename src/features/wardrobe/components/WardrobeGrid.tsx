@@ -1,6 +1,7 @@
 import { Image } from "expo-image";
 import type { SymbolViewProps } from "expo-symbols";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { LegendList } from "@legendapp/list/react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
 import { EmptyState } from "@/components/ui/EmptyState";
 import { LinkButton } from "@/components/ui/Button";
@@ -16,6 +17,17 @@ const uploadIcon = {
   web: "upload",
 } satisfies SymbolViewProps["name"];
 
+const categoryDisplayOrder = [
+  "hats",
+  "tops",
+  "bottoms",
+  "shoes",
+] satisfies WardrobeCategory[];
+
+const screenHorizontalPadding = 48;
+const tileGap = 12;
+const tileWidth = 160;
+
 export type WardrobeGridItem = {
   _id: string;
   _creationTime: number;
@@ -29,6 +41,11 @@ type WardrobeGridProps = {
   loading: boolean;
 };
 
+type WardrobeCategorySection = {
+  category: WardrobeCategory;
+  items: WardrobeGridItem[];
+};
+
 export function WardrobeGrid({ items, loading }: WardrobeGridProps) {
   if (loading) {
     return <WardrobeLoadingState />;
@@ -38,17 +55,28 @@ export function WardrobeGrid({ items, loading }: WardrobeGridProps) {
     return <WardrobeEmptyState />;
   }
 
+  const sections = getWardrobeSections(items);
+
   return (
-    <FlatList
-      columnWrapperStyle={styles.row}
+    <LegendList
       contentContainerStyle={styles.listContent}
-      data={items}
-      keyExtractor={(item) => item._id}
-      numColumns={2}
-      renderItem={({ item }) => <WardrobeTile item={item} />}
+      data={sections}
+      estimatedItemSize={278}
+      keyExtractor={(section) => section.category}
+      recycleItems
+      renderItem={({ item }) => <WardrobeSection section={item} />}
       showsVerticalScrollIndicator={false}
     />
   );
+}
+
+function getWardrobeSections(items: WardrobeGridItem[]): WardrobeCategorySection[] {
+  return categoryDisplayOrder
+    .map((category) => ({
+      category,
+      items: items.filter((item) => item.category === category),
+    }))
+    .filter((section) => section.items.length > 0);
 }
 
 function WardrobeLoadingState() {
@@ -66,6 +94,36 @@ function WardrobeEmptyState() {
       minHeight={220}
       title="No wardrobe photos yet"
     />
+  );
+}
+
+function WardrobeSection({ section }: { section: WardrobeCategorySection }) {
+  const { width } = useWindowDimensions();
+  const listWidth = Math.max(width - screenHorizontalPadding, tileWidth);
+  const centerPadding = Math.max((listWidth - tileWidth) / 2, 0);
+  const snapToIndices = section.items.map((_, index) => index);
+
+  return (
+    <View style={styles.section}>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{getCategoryLabel(section.category)}</Text>
+        <Text style={styles.sectionCount}>{section.items.length}</Text>
+      </View>
+      <LegendList
+        contentContainerStyle={[
+          styles.sectionListContent,
+          { paddingLeft: centerPadding, paddingRight: centerPadding },
+        ]}
+        data={section.items}
+        estimatedItemSize={tileWidth + tileGap}
+        horizontal
+        keyExtractor={(item) => item._id}
+        recycleItems
+        renderItem={({ item }) => <WardrobeTile item={item} />}
+        showsHorizontalScrollIndicator={false}
+        snapToIndices={snapToIndices}
+      />
+    </View>
   );
 }
 
@@ -101,20 +159,37 @@ function WardrobeTile({ item }: { item: WardrobeGridItem }) {
 
 const styles = StyleSheet.create({
   listContent: {
-    gap: 12,
+    gap: 18,
     paddingBottom: 28,
   },
-  row: {
-    gap: 12,
+  section: {
+    gap: 10,
+  },
+  sectionHeader: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  sectionTitle: {
+    color: colors.text.primary,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+  sectionCount: {
+    color: colors.text.muted,
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  sectionListContent: {
+    gap: tileGap,
   },
   tile: {
     backgroundColor: colors.surface.raised,
     borderColor: colors.border.subtle,
     borderRadius: 8,
     borderWidth: 1,
-    flex: 1,
-    minWidth: 0,
     overflow: "hidden",
+    width: tileWidth,
   },
   image: {
     aspectRatio: 1,
